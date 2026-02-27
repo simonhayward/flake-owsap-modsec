@@ -19,12 +19,13 @@
         };
         backend = builtins.getEnv "BACKEND";
         imageName = builtins.getEnv "IMAGE";
+        imageTag = builtins.getEnv "IMAGE_TAG";
       in
       {
         packages = {
           default = pkgs.dockerTools.buildLayeredImage {
             name = "${imageName}";
-            tag = "${self.shortRev or "dirty"}";
+            tag = "${imageTag}";
             fromImage = dockerImageBase;
             config = {
               Env = [
